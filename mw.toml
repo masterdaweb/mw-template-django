@@ -1,0 +1,12 @@
+# How the platform runs this app, kept with its code. A setting written here
+# is read-only in the console: change it here and push.
+
+[build]
+# The admin's CSS and JS, served by WhiteNoise from the image.
+command = "python manage.py collectstatic --noinput"
+
+[deploy]
+# Once per deploy, before the new version takes traffic.
+release_command = "python manage.py migrate --noinput"
+start_command = "gunicorn site_app.wsgi --bind 0.0.0.0:$PORT"
+health_check_path = "/health/"
